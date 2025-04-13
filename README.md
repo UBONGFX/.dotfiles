@@ -34,3 +34,5 @@ This script will create symlinks to your home directory and set up everything.
    ```bash
    source ~/.zshrc
    ```
+
+Configuration done. Wishing you smooth coding! 👍
