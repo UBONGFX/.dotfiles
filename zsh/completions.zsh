@@ -1,3 +1,5 @@
+echo "🚧 Loading completions"
+
 # Initialize the Zsh completion system
 autoload -Uz compinit && compinit
 autoload -U +X bashcompinit && bashcompinit
