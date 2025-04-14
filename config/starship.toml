@@ -11,7 +11,7 @@ $character
 # Global prompt character    #
 ##############################
 [character]
-success_symbol = "[❯](bold green)"
+success_symbol = "[➜](bold green)"
 
 ##############################
 # Cloud Technologies         #
