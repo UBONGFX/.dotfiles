@@ -5,9 +5,8 @@
 DOTFILES_DIR="$HOME/.dotfiles"
 BACKUP_DIR="$DOTFILES_DIR/_backup_$(date +%Y%m%d%H%M%S)"
 
-echo "🔧 Bootstrapping dotfiles from $DOTFILES_DIR..."
+echo -e "\n🔧 Bootstrapping dotfiles from $DOTFILES_DIR...\n"
 
-# Parallel arrays: one for target files, one for source files
 TARGETS=(
     ".zsh"
     ".zshrc"
@@ -40,8 +39,13 @@ for i in "${!TARGETS[@]}"; do
     if [ ! -d "$BACKUP_DIR" ]; then
       mkdir -p "$BACKUP_DIR"
     fi
-    echo "🗄️  Backing up existing $DEST to $BACKUP_DIR"
+    echo "🗄️ Backing up existing $DEST to $BACKUP_DIR"
     mv "$DEST" "$BACKUP_DIR/"
+  fi
+
+  if [ -d "$SOURCE" ] && [ -L "$DEST" ]; then
+    echo "❌ Removing existing  $DEST"
+    rm "$DEST"
   fi
 
   # Create or update the symbolic link.
@@ -49,4 +53,4 @@ for i in "${!TARGETS[@]}"; do
   echo "✅ Linked $SOURCE -> $DEST"
 done
 
-echo "🎉 Dotfiles bootstrapping complete!"
+echo -e "\n🎉 Dotfiles bootstrapping complete!"

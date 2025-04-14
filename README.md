@@ -18,12 +18,22 @@ Welcome to my personal dotfiles repository! This collection houses all the confi
 
 ## Quick Start 🚀
 
-1. **Clone the Repository:**
+1. **(macOS only) Install Apple’s Command Line Tools:**  
+   If you’re on macOS, install these prerequisites (needed for Git and Homebrew):
    ```bash
+   xcode-select --install
+   ``` 
+
+2. **Clone the Repository:**
+   ```bash
+   # Use SSH (if set up)...
+   git clone git@github.com:UBONGFX/.dotfiles.git
+
+   # ...or else use HTTP and switch to remote later.
    git clone https://github.com/username/dotfiles.git ~/.dotfiles
    ```
 
-2. **Run the Bootstrap Script:**
+3. **Run the Bootstrap Script:**
 This script will create symlinks to your home directory and set up everything.
    ```bash
    cd ~/.dotfiles && ./bootstrap.sh
