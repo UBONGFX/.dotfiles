@@ -3,8 +3,6 @@
 # and create symbolic links 🔗 to your dotfiles repository.
 
 DOTFILES_DIR="$HOME/.dotfiles"
-
-# Prepare a backup directory variable with a timestamp for any existing files
 BACKUP_DIR="$DOTFILES_DIR/_backup_$(date +%Y%m%d%H%M%S)"
 
 echo "🔧 Bootstrapping dotfiles from $DOTFILES_DIR..."
@@ -13,6 +11,7 @@ echo "🔧 Bootstrapping dotfiles from $DOTFILES_DIR..."
 TARGETS=(
     ".zsh"
     ".zshrc"
+    ".config/nvim"
     ".config/starship.toml"
     ".config/ghostty/config"
 )
@@ -20,6 +19,7 @@ TARGETS=(
 SOURCES=(
     "$DOTFILES_DIR/zsh"
     "$DOTFILES_DIR/zshrc"
+    "$DOTFILES_DIR/config/nvim"
     "$DOTFILES_DIR/config/starship.toml"
     "$DOTFILES_DIR/config/ghostty/config"
 )
