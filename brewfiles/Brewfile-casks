@@ -1,0 +1,39 @@
+# development
+cask "docker"
+cask "raycast"
+cask "openlens"
+cask "arc"
+cask "visual-studio-code"
+cask "google-chrome"
+cask "ghostty"
+cask "figma"
+
+# office
+cask "microsoft-excel"
+cask "microsoft-teams"
+cask "microsoft-outlook"
+cask "microsoft-powerpoint"
+cask "adobe-acrobat-reader"
+cask "asana"
+
+# private
+cask "autodesk-fusion"
+cask "arduino"
+cask "prusaslicer"
+cask "raspberry-pi-imager"
+cask "chatgpt"
+cask "spotify"
+cask "wireshark"
+cask "whatsapp"
+
+#other
+cask "anaconda"
+cask "android-studio"
+cask "discord"
+cask "flutter"
+cask "framer"
+cask "mactex"
+cask "notion"
+cask "postman"
+cask "redis-insight"
+cask "vivaldi"
