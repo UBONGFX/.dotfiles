@@ -8,3 +8,7 @@ background-blur-radius = 20
 
 mouse-hide-while-typing = true
 window-decoration = true
+
+window-theme = ghostty
+gtk-titlebar = false        # only on linux
+gtk-tabs-location = hidden  # only on linux
