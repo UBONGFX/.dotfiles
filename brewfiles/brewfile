@@ -1,5 +1,42 @@
+# Taps
+tap "homebrew/bundle"
+
+# CLI essentials
+brew "git"
+brew "fzf"
+brew "ripgrep"
+brew "coreutils"
+brew "fd"
+brew "jq"
+brew "curl"
+brew "wget"
+
+# tools 
+brew "k9s"
+brew "htop"
+brew "tmux"
+brew "macchina"
+tap "teamookla/speedtest"
+brew "neovim"
+
+brew "starship"
+brew "eza"
+brew "bat"
+brew "tree"
+
 # zsh plugins
+brew "zsh"
 brew "zsh-autosuggestions"
 brew "zsh-history-substring-search"
 brew "zsh-syntax-highlighting"
 brew "zsh-you-should-use"
+
+tap "hashicorp/tap"
+brew "terraform"
+brew "ansible"
+brew "helm"
+brew "helm-docs"
+brew "awscli"
+brew "kubectl"
+brew "kubectx"
+brew "docker"
