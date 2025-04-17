@@ -17,7 +17,7 @@ success_symbol = "[➜](bold green)"
 # Cloud Technologies         #
 ##############################
 [kubernetes]
-format = '[$symbol$context( \($namespace\))]($style)'
+format = '[$symbol$context( \($namespace\))]($style) '
 style = 'dimmed green'
 symbol = "☸ "
 
