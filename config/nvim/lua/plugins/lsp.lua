@@ -16,7 +16,6 @@ return {
       require("mason-lspconfig").setup({
         ensure_installed = {
           "lua_ls",
-          "tsserver",
           "jsonls",
           "pyright",
           "svelte",
@@ -25,7 +24,7 @@ return {
       })
 
       local lspconfig = require("lspconfig")
-      local servers = { "lua_ls", "tsserver", "jsonls", "pyright", "svelte" }
+      local servers = { "lua_ls", "jsonls", "pyright", "svelte" }
 
       for _, server in ipairs(servers) do
         lspconfig[server].setup({})
