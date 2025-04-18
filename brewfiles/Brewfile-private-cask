@@ -1,0 +1,8 @@
+# private
+cask "discord"
+cask "arduino"
+cask "autodesk-fusion"
+cask "prusaslicer"
+cask "raspberry-pi-imager"
+cask "chatgpt"
+cask "wireshark"

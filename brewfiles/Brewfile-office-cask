@@ -1,0 +1,8 @@
+# office
+cask "microsoft-excel"
+cask "microsoft-teams"
+cask "microsoft-outlook"
+cask "microsoft-powerpoint"
+cask "adobe-acrobat-reader"
+cask "spotify"
+cask "asana"

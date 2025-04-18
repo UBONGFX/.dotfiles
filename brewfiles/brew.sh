@@ -28,7 +28,7 @@ if ! command -v brew &>/dev/null; then
     echo "🍺 Added Homebrew path for Linux (user install)."
   fi
 else
-  echo -e "\n👍 Homebrew 🍺 is already installed. Proceedingg... 🚀\n"
+  echo -e "\n👍 Homebrew 🍺 is already installed. Proceeding... 🚀\n"
 fi
 
 # 2. Choose which Brewfiles to run

@@ -23,7 +23,7 @@ brew "zsh-history-substring-search"
 brew "zsh-syntax-highlighting"
 brew "zsh-you-should-use"
 
-# infra tools - non-base
+# infra tools 
 tap "hashicorp/tap"
 brew "terraform"
 brew "ansible"
@@ -36,7 +36,7 @@ brew "docker"
 brew "kind"
 brew "k9s"
 
-# nice to have - non-base
+# nice to have 
 tap "teamookla/speedtest"
 brew "teamookla/speedtest/speedtest"
 brew "cmatrix"
