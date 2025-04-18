@@ -10,6 +10,7 @@ echo -e "\n🔧 Bootstrapping dotfiles from $DOTFILES_DIR...\n"
 TARGETS=(
     ".zsh"
     ".zshrc"
+    ".gitconfig"
     ".config/nvim"
     ".config/starship.toml"
     ".config/ghostty/config"
@@ -18,6 +19,7 @@ TARGETS=(
 SOURCES=(
     "$DOTFILES_DIR/zsh"
     "$DOTFILES_DIR/zshrc"
+    "$DOTFILES_DIR/.gitconfig"
     "$DOTFILES_DIR/config/nvim"
     "$DOTFILES_DIR/config/starship.toml"
     "$DOTFILES_DIR/config/ghostty/config"
@@ -44,7 +46,7 @@ for i in "${!TARGETS[@]}"; do
   fi
 
   if [ -d "$SOURCE" ] && [ -L "$DEST" ]; then
-    echo "❌ Removing existing  $DEST"
+    echo "🗑 Removing existing  $DEST"
     rm "$DEST"
   fi
 
@@ -52,5 +54,3 @@ for i in "${!TARGETS[@]}"; do
   ln -sf "$SOURCE" "$DEST"
   echo "✅ Linked $SOURCE -> $DEST"
 done
-
-echo -e "\n🎉 Dotfiles bootstrapping complete!"
