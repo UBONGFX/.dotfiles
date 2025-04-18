@@ -1,6 +1,17 @@
 #!/bin/bash
-# This script will back up your existing dotfiles 🗄️
-# and create symbolic links 🔗 to your dotfiles repository.
+# Bootstraps your dotfiles repository:
+#   • Backs up existing non-symlink dotfiles 🗄️
+#   • Creates or updates symbolic links 🔗 from $HOME to your repo
+#   • Supports “soft” mode (--soft): preserves existing files without backing up or linking 🔕
+
+set -euo pipefail
+
+# usage: bootstrap.sh [--soft]
+SOFT_MODE=false
+if [[ "${1:-}" == "--soft" ]]; then
+  SOFT_MODE=true
+  echo "⚠️  Running in SOFT mode: existing files will be left in place."
+fi
 
 DOTFILES_DIR="$HOME/.dotfiles"
 BACKUP_DIR="$DOTFILES_DIR/_backup_$(date +%Y%m%d%H%M%S)"
@@ -31,16 +42,21 @@ for i in "${!TARGETS[@]}"; do
   SOURCE="${SOURCES[$i]}"
   DEST="$HOME/$TARGET"
 
-  # Automatically create the target directory if it doesn't exist.
-  DEST_DIR=$(dirname "$DEST")
-  mkdir -p "$DEST_DIR"
+  # Ensure parent directory exists
+  mkdir -p "$(dirname "$DEST")"
+
+  # if soft mode and something already exists, skip it entirely
+  if $SOFT_MODE && [ -e "$DEST" ]; then
+    echo "🔕 Soft mode: keeping existing $DEST"
+    continue
+  fi
 
   # If the target file/directory exists and isn't already a symlink, back it up first.
   if [ -e "$DEST" ] && [ ! -L "$DEST" ]; then
-    # Create the backup directory if it hasn't been created yet.
     if [ ! -d "$BACKUP_DIR" ]; then
       mkdir -p "$BACKUP_DIR"
     fi
+
     echo "🗄️ Backing up existing $DEST to $BACKUP_DIR"
     mv "$DEST" "$BACKUP_DIR/"
   fi
