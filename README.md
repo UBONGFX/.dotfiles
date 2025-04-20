@@ -33,13 +33,42 @@ Welcome to my personal dotfiles repository! This collection houses all the confi
    git clone https://github.com/username/dotfiles.git ~/.dotfiles
    ```
 
-3. **Run the Bootstrap Script:**
-This script will create symlinks to your home directory and set up everything.
+3. **Install Homebrew Packages & Apps:**  
+   Bootstrap Homebrew itself (if missing), then install your formulae, casks, and fonts.  
+   - **Default (no flag):** installs **everything** (base + office casks + private casks + fonts)  
+   - **`--base`:** only core formulae + base casks + fonts  
+   - **`--office`:** base + office casks  
+   - **`--private`:** base + private casks
+   - **Note (Linux):** on Linux the script always runs in default mode but installs only core formulae (casks and fonts are not supported) 
    ```bash
-   cd ~/.dotfiles && ./bootstrap.sh
+   cd ~/.dotfiles
+
+   # Default (all, macOS only):
+   source ./scripts/brew-bootstrap.sh
+
+   # Or limit to base only (also the only mode on Linux):
+   source ./scripts/brew-bootstrap.sh --base
+
+   # Or include office GUI apps only:
+   source ./scripts/brew-bootstrap.sh --office
+
+   # Or install private casks only:
+   source ./scripts/brew-bootstrap.sh --private
    ```
 
-4. **Reload or Restart Your Shell:**  
+4. **Run the Dotfiles Bootstrap Script:**  
+   Back up any existing dotfiles and create symlinks to your repo.  
+   - **Normal mode** (default): moves old files to a backup folder and replaces them with symlinks.  
+   - **Soft mode** (`--soft`): preserves any existing files in place (no backup or linking).  
+   ```bash
+   # Use this to force changes...
+   ./scripts/bootstrap.sh
+
+   # ..or use it with the soft flag
+   ./scripts/bootstrap.sh --soft
+   ```
+
+5. **Reload or Restart Your Shell:**  
    For all changes to take effect, either open a new terminal window or reload your current session with:
    ```bash
    source ~/.zshrc
