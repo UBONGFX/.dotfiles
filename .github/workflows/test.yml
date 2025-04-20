@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Bats Core
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y git curl
+          git clone https://github.com/bats-core/bats-core.git /opt/bats
+          sudo ln -s /opt/bats/bin/bats /usr/local/bin/bats
+
+      - name: Make scripts executable
+        run: |
+          chmod +x scripts/*.sh
+
+      - name: Run Bats tests
+        run: |
+          bats --tap tests/bootstrap.bats
