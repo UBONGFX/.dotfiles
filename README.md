@@ -68,7 +68,16 @@ Welcome to my personal dotfiles repository! This collection houses all the confi
    ./scripts/bootstrap.sh --soft
    ```
 
-5. **Reload or Restart Your Shell:**  
+5. **Set Your Login Shell to Homebrew Zsh:**  
+   Ensure you’re running the Homebrew‑installed Zsh as your default login shell:  
+   - 	Registers the brew‑installed Zsh in /etc/shells if needed.
+	-	Runs chsh to update your login shell.
+	-	Enter your password when prompted to authorize the change.
+   ```bash
+   sudo ./scripts/set_shell.sh
+   ```
+
+6. **Reload or Restart Your Shell:**  
    For all changes to take effect, either open a new terminal window or reload your current session with:
    ```bash
    source ~/.zshrc
