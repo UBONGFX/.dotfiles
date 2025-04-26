@@ -1,4 +1,4 @@
-# CLI essentials
+# essentials
 brew "git"
 brew "fzf"
 brew "coreutils"
@@ -7,8 +7,10 @@ brew "jq"
 brew "curl"
 brew "wget"
 brew "eza"
+brew "less"
 brew "bat"
 brew "tree"
+brew "gcc"
 
 # tools 
 brew "htop"
