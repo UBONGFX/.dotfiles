@@ -2,6 +2,7 @@
 brew "git"
 brew "fzf"
 brew "coreutils"
+brew "luarocks"
 brew "fd"
 brew "jq"
 brew "curl"
