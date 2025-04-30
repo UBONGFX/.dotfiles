@@ -1,9 +1,9 @@
 #!/bin/bash
-# Bootstraps Homebrew and your Brewfiles:
+# Bootstraps Homebrew and your brewfiles:
 #   • Installs Homebrew if missing (non‑interactive) 🚀🔧
 #   • Sets up Homebrew environment for Linux or macOS 📝
 #   • Supports modes: --base, --office, --private (default: all) ⚙️
-#   • Runs `brew bundle` on each selected Brewfile 📦✅
+#   • Runs `brew bundle` on each selected brewfile 📦✅
 
 set -euo pipefail
 
@@ -50,37 +50,37 @@ else
   echo -e "\n👍 Homebrew 🍺 is already installed. Proceeding... 🚀\n"
 fi
 
-# 2. Choose which Brewfiles to run
+# 2. Choose which brewfiles to run
 BREWFILES_DIR="$HOME/.dotfiles/brewfiles"
 declare -a FILES
 
 if [[ "$(uname)" == "Linux" ]]; then
   echo "🖥️ Detected Linux — running core formulae only"
-  FILES+=( "$BREWFILES_DIR/Brewfile-base" )
+  FILES+=( "$BREWFILES_DIR/brewfile-base" )
 else
   echo "🍎 Detected macOS — installation mode: $mode"
   # Always include base formulae, base casks, and base fonts
   FILES+=(
-    "$BREWFILES_DIR/Brewfile-base"
+    "$BREWFILES_DIR/brewfile-base"
     "$BREWFILES_DIR/brewfile-base-cask"
-    "$BREWFILES_DIR/brewfiles-base-fonts"
+    "$BREWFILES_DIR/brewfile-base-fonts"
   )
 
   # Office-only additions
   if [[ "$mode" == "office" || "$mode" == "all" ]]; then
-    FILES+=( "$BREWFILES_DIR/brewfiles-office-cask" )
+    FILES+=( "$BREWFILES_DIR/brewfile-office-cask" )
   fi
 
   # Private-only additions
   if [[ "$mode" == "private" || "$mode" == "all" ]]; then
-    FILES+=( "$BREWFILES_DIR/brewfiles-private-cask" )
+    FILES+=( "$BREWFILES_DIR/brewfile-private-cask" )
   fi
 fi
 
 # 3. Run brew bundle on each Brewfile
 for f in "${FILES[@]}"; do
   if [[ -f "$f" ]]; then
-    echo -e "📦 Installing from $f…\n"
+    echo -e "📦 Installing from $f...\n"
     brew bundle --file="$f"
     echo "✅ Finished $f"
   else
