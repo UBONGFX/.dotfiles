@@ -12,7 +12,7 @@
 				"waderyan.gitblame",
 				"jetmartin.bats"
 			]
-		}	
+		}
 	},
 	"postCreateCommand": "chmod +x scripts/*.sh",
 	"remoteUser": "devuser"

@@ -1,12 +1,11 @@
-# tests/set_shell.bats
 #!/usr/bin/env bats
 
 setup() {
   # Create a temp HOME and bin for stubs
   export HOME="$BATS_TEST_TMPDIR/home"
   mkdir -p "$HOME/.dotfiles/scripts" "$BATS_TEST_TMPDIR/bin"
-  cp scripts/set_shell.sh "$HOME/.dotfiles/scripts/"
-  chmod +x "$HOME/.dotfiles/scripts/set_shell.sh"
+  cp scripts/set-shell.sh "$HOME/.dotfiles/scripts/"
+  chmod +x "$HOME/.dotfiles/scripts/set-shell.sh"
 
   # Prepend our stub bin to PATH
   export PATH="$BATS_TEST_TMPDIR/bin:$PATH"
@@ -19,50 +18,65 @@ teardown() {
   rm -rf "$BATS_TEST_TMPDIR"
 }
 
-# 1. No Homebrew in PATH
-@test "No Homebrew in PATH" {
-  # Ensure brew not found
-  mv "$(command -v brew)" /tmp/brew.tmp 2>/dev/null || true
+@test "dummy" {
+  run true
+  [ "$status" -eq 0 ]
+}
 
-  run bash "$HOME/.dotfiles/scripts/set_shell.sh"
+@test "No Homebrew in PATH" {
+  # Capture the real brew location
+  original_brew="$(command -v brew || true)"
+
+  # Ensure brew not found
+  if [ -n "$original_brew" ]; then
+    mv "$original_brew" /tmp/brew.tmp
+  fi
+
+  run bash "$HOME/.dotfiles/scripts/set-shell.sh"
   [ "$status" -eq 1 ]
   [[ "$output" == *"Homebrew not found"* ]]
 
-  # restore brew if existed
-  mv /tmp/brew.tmp "$(command -v brew)" 2>/dev/null || true
+  # Restore brew if we moved it
+  if [ -n "$original_brew" ] && [ -f /tmp/brew.tmp ]; then
+    mv /tmp/brew.tmp "$original_brew"
+  fi
 }
 
 # 2. Brew‑Zsh missing
 @test "Brew prefix present but Zsh missing" {
-  # Setup: simulate brew --prefix, no $prefix/bin/zsh
-  # Act: run set_shell.sh
-  # Assert: script exits error “Zsh not found”
+  # Stub brew and prefix
+  cat > "$BATS_TEST_TMPDIR/bin/brew" <<'EOF'
+#!/usr/bin/env bash
+if [ "$1" = "--prefix" ]; then
+  echo "/fakebrew"
+else
+  /usr/bin/brew "$@"
+fi
+EOF
+  mkdir -p /fakebrew/bin
+  chmod +x "$BATS_TEST_TMPDIR/bin/brew"
+
+  run bash "$HOME/.dotfiles/scripts/set-shell.sh"
+  [ "$status" -eq 1 ]
+  [[ "$output" == *"Zsh not found at /fakebrew/bin/zsh"* ]]
 }
 
-# 3. Already running brew‑Zsh
-@test "Already running brew‑installed Zsh" {
-  # Setup: set SHELL to brew Zsh path
-  # Act: run set_shell.sh
-  # Assert: prints skip message, exit 0
-}
+# # 3. Already running brew‑installed Zsh
+# @test "Already running brew‑installed Zsh" {
+#   # Stub brew to point at /usr
+#   cat > "$BATS_TEST_TMPDIR/bin/brew" <<'EOF'
+# #!/usr/bin/env bash
+# if [ "$1" = "--prefix" ]; then
+#   echo "/usr"
+# else
+#   /usr/bin/brew "$@"
+# fi
+# EOF
+#   chmod +x "$BATS_TEST_TMPDIR/bin/brew"
 
-# 4. Needs registration
-@test "Register brew Zsh and change shell" {
-  # Setup: brew zsh exists, not in /etc/shells
-  # Act: run set_shell.sh
-  # Assert: /etc/shells appended, chsh called
-}
+#   zsh_path="/usr/bin/zsh"
+#   run env SHELL="$zsh_path" bash "$HOME/.dotfiles/scripts/set-shell.sh"
 
-# 5. Already registered, needs change
-@test "Already registered brew Zsh, change shell" {
-  # Setup: brew Zsh in /etc/shells, login shell != brew Zsh
-  # Act: run set_shell.sh
-  # Assert: skips registration, chsh called
-}
-
-# 6. chsh failure
-@test "chsh returns non-zero" {
-  # Setup: stub chsh to fail
-  # Act: run set_shell.sh
-  # Assert: prints manual instruction, exit 1
-}
+#   [ "$status" -eq 0 ]
+#   [[ "$output" == *"Already running brew-installed Zsh"* ]]
+# }
