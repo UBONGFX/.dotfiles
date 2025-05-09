@@ -1,0 +1,19 @@
+{
+	"name": "Existing Dockerfile",
+	"build": {
+		"context": "..",
+		"dockerfile": "./Dockerfile"
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"github.vscode-github-actions",
+				"mhutchie.git-graph",
+				"waderyan.gitblame",
+				"jetmartin.bats"
+			]
+		}	
+	},
+	"postCreateCommand": "chmod +x scripts/*.sh",
+	"remoteUser": "devuser"
+}
