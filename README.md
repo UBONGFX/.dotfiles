@@ -83,4 +83,28 @@ Welcome to my personal dotfiles repository! This collection houses all the confi
    source ~/.zshrc
    ```
 
-Configuration done. Wishing you smooth coding! 👍
+## 🧪 Running Tests
+
+I use [Bats Core](https://github.com/bats-core/bats-core) to validate the scripts. You can install it via Homebrew.
+
+**Run the tests**  
+From the repo root, execute:  
+```bash
+bats --tap tests/ 
+```
+
+## 🐳 DevContainer Recommended
+ 
+If you plan to **work on the scripts** or **run the tests locally**, I strongly recommend using the included DevContainer.  
+It gives you a clean, isolated environment that matches CI.
+
+1. Install VS Code’s **Remote – Containers** extension.  
+2. Reopen this folder in a container when prompted.  
+
+## 🎉 That’s It! 🎉  
+
+Thanks for checking out my dotfiles—feel free to  
+- open an issue if you hit any snags  
+- submit a PR with improvements  
+
+Happy coding! 🚀
