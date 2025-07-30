@@ -18,6 +18,7 @@ brew "htop"
 brew "tmux"
 brew "neovim"
 brew "starship"
+brew "nvm"
 
 # zsh plugins
 brew "zsh"
@@ -38,8 +39,6 @@ brew "kubectx"
 brew "docker"
 brew "kind"
 brew "k9s"
-
-brew "nvm"
 
 # nice to have 
 tap "teamookla/speedtest"
