@@ -39,6 +39,8 @@ brew "docker"
 brew "kind"
 brew "k9s"
 
+brew "nvm"
+
 # nice to have 
 tap "teamookla/speedtest"
 brew "teamookla/speedtest/speedtest"

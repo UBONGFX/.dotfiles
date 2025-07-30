@@ -7,6 +7,8 @@
 
 set -euo pipefail
 
+#TODO: no flag should be "base". and new flag --all for all.
+
 # Parse mode flag
 mode="all"
 if [[ "${1:-}" == "--base" ]]; then
@@ -56,28 +58,28 @@ declare -a FILES
 
 if [[ "$(uname)" == "Linux" ]]; then
   echo "🖥️ Detected Linux — running core formulae only"
-  FILES+=( "$BREWFILES_DIR/brewfile-base" )
+  FILES+=( "$BREWFILES_DIR/Brewfile-base" )
 else
   echo "🍎 Detected macOS — installation mode: $mode"
   # Always include base formulae, base casks, and base fonts
   FILES+=(
-    "$BREWFILES_DIR/brewfile-base"
-    "$BREWFILES_DIR/brewfile-base-cask"
-    "$BREWFILES_DIR/brewfile-base-fonts"
+    "$BREWFILES_DIR/Brewfile-base"
+    "$BREWFILES_DIR/Brewfile-base-casks"
+    "$BREWFILES_DIR/Brewfile-base-fonts"
   )
 
   # Office-only additions
   if [[ "$mode" == "office" || "$mode" == "all" ]]; then
-    FILES+=( "$BREWFILES_DIR/brewfile-office-cask" )
+    FILES+=( "$BREWFILES_DIR/Brewfile-office-casks" )
   fi
 
   # Private-only additions
   if [[ "$mode" == "private" || "$mode" == "all" ]]; then
-    FILES+=( "$BREWFILES_DIR/brewfile-private-cask" )
+    FILES+=( "$BREWFILES_DIR/Brewfile-private-casks" )
   fi
 fi
 
-# 3. Run brew bundle on each Brewfile
+# 3. Run brew bundle on each brewfile
 for f in "${FILES[@]}"; do
   if [[ -f "$f" ]]; then
     echo -e "📦 Installing from $f...\n"
