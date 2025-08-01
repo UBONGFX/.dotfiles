@@ -1,0 +1,16 @@
+# SSH Configuration
+# Safe to version control - contains no private keys
+
+# GitHub
+Host github.com
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_ed25519
+    AddKeysToAgent yes
+    UseKeychain yes
+
+# Default settings for all hosts
+Host *
+    AddKeysToAgent yes
+    UseKeychain yes
+    IdentitiesOnly yes

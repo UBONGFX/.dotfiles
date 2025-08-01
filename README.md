@@ -26,11 +26,11 @@ Welcome to my personal dotfiles repository! This collection houses all the confi
 
 2. **Clone the Repository:**
    ```bash
-   # Use SSH (if set up)...
-   git clone git@github.com:UBONGFX/.dotfiles.git
+   # Use HTTPS (recommended for initial setup)...
+   git clone https://github.com/UBONGFX/.dotfiles.git ~/.dotfiles
 
-   # ...or else use HTTP and switch to remote later.
-   git clone https://github.com/username/dotfiles.git ~/.dotfiles
+   # ...or use SSH (if you have SSH keys set up)
+   git clone git@github.com:UBONGFX/.dotfiles.git ~/.dotfiles
    ```
 
 3. **Install Homebrew Packages & Apps:**  
@@ -81,6 +81,37 @@ Welcome to my personal dotfiles repository! This collection houses all the confi
    For all changes to take effect, either open a new terminal window or reload your current session with:
    ```bash
    source ~/.zshrc
+   ```
+
+7. **Set Up SSH Keys (Recommended):**  
+   Create a complete SSH environment with directory, config, and keys:
+   ```bash
+   ./scripts/ssh-setup.sh
+   ```
+   
+   The script will:
+   - Create ~/.ssh directory with proper permissions (700)
+   - Copy SSH config from your dotfiles 
+   - Generate ed25519 SSH keys if they don't exist
+   - Add keys to SSH agent (macOS)
+   - Display your public key to add to GitHub
+
+## 🔄 Switching to SSH Remote (Optional)
+
+If you cloned using HTTPS but want to switch to SSH for easier authentication (no password prompts), you can change the remote URL:
+
+1. **First, make sure you have SSH keys set up with GitHub:**
+   - Follow [GitHub's SSH key setup guide](https://docs.github.com/en/authentication/connecting-to-github-with-ssh) if you haven't already.
+
+2. **Change the remote URL to SSH:**
+   ```bash
+   cd ~/.dotfiles
+   git remote set-url origin git@github.com:UBONGFX/.dotfiles.git
+   ```
+
+3. **Verify the change:**
+   ```bash
+   git remote -v
    ```
 
 ## 🧪 Running Tests
