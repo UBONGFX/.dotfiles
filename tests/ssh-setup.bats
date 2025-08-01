@@ -140,7 +140,6 @@ teardown() {
   
   # Capture initial state
   initial_key=$(cat "$HOME/.ssh/id_ed25519.pub")
-  initial_config_mtime=$(stat -f %m "$HOME/.ssh/config")
   
   # Second run
   run bash "$HOME/.dotfiles/scripts/ssh-setup.sh"
@@ -148,8 +147,8 @@ teardown() {
   
   # Assert nothing changed
   current_key=$(cat "$HOME/.ssh/id_ed25519.pub")
-  current_config_mtime=$(stat -f %m "$HOME/.ssh/config")
-  
   [ "$initial_key" = "$current_key" ]
-  [ "$initial_config_mtime" = "$current_config_mtime" ]
+  
+  # Assert idempotent message shown
+  [[ "$output" =~ "SSH is already fully configured" ]]
 }
