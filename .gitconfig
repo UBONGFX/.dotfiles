@@ -14,7 +14,7 @@
         whitespace = trailing-space,space-before-tab
 
 [pull]
-        rebase = true
+        ff = only
 
 [push]
         default = simple
@@ -23,19 +23,15 @@
 [fetch]
         prune = true
 
-[rebase]
-        autoStash = true
-        autoSquash = true
-
 [branch]
-        autoSetupRebase = always
+        autoSetupMerge = always
 
 [merge]
-        tool = vimdiff
+        tool = nvimdiff
         conflictstyle = diff3
 
 [diff]
-        tool = vimdiff
+        tool = nvimdiff
         colorMoved = default
 
 [color]
@@ -60,13 +56,12 @@
 
 [alias]
         # Basic shortcuts
-        co = checkout
-        br = branch
-        ci = commit
-        st = status
+        # co = checkout
+        # br = branch
+        # ci = commit
+        # st = status
         unstage = reset HEAD --
         last = log -1 HEAD
-        visual = !gitk
 
         # Log aliases
         lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
