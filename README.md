@@ -16,15 +16,26 @@ Welcome to my personal dotfiles repository! This collection houses all the confi
 - **Automation and Scripts ⚡:**  
   Custom scripts and bootstrap tools automate the setup process, making it simple to deploy my personalized environment on any new machine.
 
+## Prerequisites 🍺
+
+### 1. **(macOS only) Install Apple's Command Line Tools:**  
+If you're on macOS, install these prerequisites first (needed for Git and Homebrew):
+```bash
+xcode-select --install
+``` 
+
+### 2. **Install Homebrew:**
+Install the package manager (works on macOS and Linux):
+```bash
+# Install Homebrew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+After installation, restart your terminal or run `source ~/.zshrc` to ensure `brew` is available.
+
 ## Quick Start 🚀
 
-1. **(macOS only) Install Apple’s Command Line Tools:**  
-   If you’re on macOS, install these prerequisites (needed for Git and Homebrew):
-   ```bash
-   xcode-select --install
-   ``` 
-
-2. **Clone the Repository:**
+1. **Clone the Repository:**
    ```bash
    # Use HTTPS (recommended for initial setup)...
    git clone https://github.com/UBONGFX/.dotfiles.git ~/.dotfiles
@@ -33,9 +44,9 @@ Welcome to my personal dotfiles repository! This collection houses all the confi
    git clone git@github.com:UBONGFX/.dotfiles.git ~/.dotfiles
    ```
 
-3. **Install Homebrew Packages & Apps:**  
-   Bootstrap Homebrew itself (if missing), then install your formulae, casks, and fonts.  
-   - **Default (no flag):** installs **everything** (base + office casks + private casks + fonts)  
+2. **Install Homebrew Packages & Apps:**
+   Install your formulae, casks, and fonts using the package manager:  
+   - **Default (no flag):** installs **base**
    - **`--base`:** only core formulae + base casks + fonts  
    - **`--office`:** base + office casks  
    - **`--private`:** base + private casks
@@ -56,7 +67,7 @@ Welcome to my personal dotfiles repository! This collection houses all the confi
    source ./scripts/brew-bootstrap.sh --private
    ```
 
-4. **Run the Dotfiles Bootstrap Script:**  
+3. **Run the Dotfiles Bootstrap Script:**
    Back up any existing dotfiles and create symlinks to your repo.  
    - **Normal mode** (default): moves old files to a backup folder and replaces them with symlinks.  
    - **Soft mode** (`--soft`): preserves any existing files in place (no backup or linking).  
@@ -68,8 +79,8 @@ Welcome to my personal dotfiles repository! This collection houses all the confi
    ./scripts/bootstrap.sh --soft
    ```
 
-5. **Set Your Login Shell to Homebrew Zsh:**  
-   Ensure you’re running the Homebrew‑installed Zsh as your default login shell:  
+4. **Set Your Login Shell to Homebrew Zsh:**
+   Ensure you're running the Homebrew‑installed Zsh as your default login shell:  
    - 	Registers the brew‑installed Zsh in /etc/shells if needed.
 	-	Runs chsh to update your login shell.
 	-	Enter your password when prompted to authorize the change.
@@ -77,13 +88,13 @@ Welcome to my personal dotfiles repository! This collection houses all the confi
    sudo ./scripts/set_shell.sh
    ```
 
-6. **Reload or Restart Your Shell:**  
+5. **Reload or Restart Your Shell:**
    For all changes to take effect, either open a new terminal window or reload your current session with:
    ```bash
    source ~/.zshrc
    ```
 
-7. **Set Up SSH Keys (Recommended):**  
+6. **Set Up SSH Keys (Recommended):**
    Create a complete SSH environment with directory, config, and keys:
    ```bash
    ./scripts/ssh-setup.sh
@@ -95,6 +106,20 @@ Welcome to my personal dotfiles repository! This collection houses all the confi
    - Generate ed25519 SSH keys if they don't exist
    - Add keys to SSH agent (macOS)
    - Display your public key to add to GitHub
+
+7. **Verify Git Configuration (Optional):**
+   Run a health check on your Git setup:
+   ```bash
+   ./scripts/git-doctor.sh
+   ```
+   
+   This will validate:
+   - Git installation and version
+   - User configuration (name/email)
+   - Global gitignore setup
+   - SSH key configuration
+   - GitHub connectivity
+   - Useful Git aliases
 
 ## 🔄 Switching to SSH Remote (Optional)
 
@@ -116,7 +141,7 @@ If you cloned using HTTPS but want to switch to SSH for easier authentication (n
 
 ## 🧪 Running Tests
 
-I use [Bats Core](https://github.com/bats-core/bats-core) to validate the scripts. You can install it via Homebrew.
+I use [Bats Core](https://github.com/bats-core/bats-core) to validate the scripts. You can install it via Homebrew.
 
 **Run the tests**  
 From the repo root, execute:  
@@ -129,13 +154,5 @@ bats --tap tests/
 If you plan to **work on the scripts** or **run the tests locally**, I strongly recommend using the included DevContainer.  
 It gives you a clean, isolated environment that matches CI.
 
-1. Install VS Code’s **Remote – Containers** extension.  
+1. Install VS Code's **Remote – Containers** extension.  
 2. Reopen this folder in a container when prompted.  
-
-## 🎉 That’s It! 🎉  
-
-Thanks for checking out my dotfiles—feel free to  
-- open an issue if you hit any snags  
-- submit a PR with improvements  
-
-Happy coding! 🚀

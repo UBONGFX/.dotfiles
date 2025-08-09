@@ -15,7 +15,7 @@ setup() {
   [ "$status" -eq 0 ] || fail "❌ Script exited with status $status"
 
   # Assert each target is now a symlink
-  for target in .zsh .zshrc .gitconfig .config/nvim .config/starship.toml .config/ghostty/config; do
+  for target in .zsh .zshrc .gitconfig .gitignore_global .config/nvim .config/starship.toml .config/ghostty/config; do
     [ -L "$HOME/$target" ] \
       || fail "❌ $HOME/$target is not a symlink"
   done
@@ -110,6 +110,7 @@ setup() {
     .zsh \
     .zshrc \
     .gitconfig \
+    .gitignore_global \
     .config/nvim \
     .config/starship.toml \
     .config/ghostty/config; do

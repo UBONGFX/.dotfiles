@@ -1,5 +1,4 @@
 # SSH Configuration
-# Safe to version control - contains no private keys
 
 # GitHub
 Host github.com

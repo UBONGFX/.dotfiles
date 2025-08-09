@@ -1,63 +1,55 @@
 #!/bin/bash
-# Bootstraps Homebrew and your brewfiles:
-#   • Installs Homebrew if missing (non‑interactive) 🚀🔧
-#   • Sets up Homebrew environment for Linux or macOS 📝
+# Installs packages from your brewfiles:
+#   • Requires Homebrew to be pre-installed 🍺
 #   • Supports modes: --base, --office, --private (default: all) ⚙️
 #   • Runs `brew bundle` on each selected brewfile 📦✅
+#   • Cross-platform: adapts to macOS vs Linux 🌍
 
 set -euo pipefail
 
-#TODO: no flag should be "base". and new flag --all for all.
+# Ensure Homebrew is available
+if ! command -v brew &>/dev/null; then
+  echo "❌ Homebrew not found!"
+  echo ""
+  echo "🔧 Please install Homebrew first:"
+  echo "   /bin/bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\""
+  echo ""
+  echo "   Then restart your terminal or run: source ~/.zshrc"
+  echo "   More info: https://brew.sh"
+  exit 1
+fi
 
 # Parse mode flag
-mode="all"
+mode="base"
 if [[ "${1:-}" == "--base" ]]; then
   mode="base"
 elif [[ "${1:-}" == "--office" ]]; then
   mode="office"
 elif [[ "${1:-}" == "--private" ]]; then
   mode="private"
-elif [[ "${1:-}" =~ -- ]]; then
+elif [[ "${1:-}" == "--all" ]]; then
+  mode="all"
+elif [[ "${1:-}" =~ ^-- ]]; then
   echo "❌ Unknown flag: $1"
-  echo "Usage: $0 [--base|--office|--private]"
+  echo ""
+  echo "Usage: $0 [--base|--office|--private|--all]"
+  echo "  --base     Install base formulae only"
+  echo "  --office   Install base + office applications"  
+  echo "  --private  Install base + private applications"
+  echo "  --all      Install everything (default)"
   exit 1
 fi
 
+echo -e "\n🍺 Brew Package Installer"
 echo "▶ Installation mode: $mode"
+echo "▶ Homebrew version: $(brew --version | head -n1)"
 
-# 1. Ensure Homebrew is installed
-if ! command -v brew &>/dev/null; then
-  echo "🚀 Homebrew 🍺 is not installed. Installing… 🔧"
-
-  # Install non‑interactively
-  CI=1 NONINTERACTIVE=1 \
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-  echo "✅ Homebrew 🍺 installed successfully! 🎉"
-
-  # Add Homebrew to PATH
-  if [[ -d "/opt/homebrew/bin" ]]; then
-    export PATH="/opt/homebrew/bin:$PATH"
-    echo "🍺 Added Homebrew path for Apple Silicon."
-  fi
-
-  if [[ -d "/home/linuxbrew/.linuxbrew/bin" ]]; then
-    export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
-    echo "🍺 Added Homebrew path for Linux."
-  elif [[ -d "$HOME/.linuxbrew/bin" ]]; then
-    export PATH="$HOME/.linuxbrew/bin:$PATH"
-    echo "🍺 Added Homebrew path for Linux (user install)."
-  fi
-else
-  echo -e "\n👍 Homebrew 🍺 is already installed. Proceeding... 🚀\n"
-fi
-
-# 2. Choose which brewfiles to run
+# Choose which brewfiles to run
 BREWFILES_DIR="$HOME/.dotfiles/brewfiles"
 declare -a FILES
 
 if [[ "$(uname)" == "Linux" ]]; then
-  echo "🖥️ Detected Linux — running core formulae only"
+  echo "� Detected Linux — running core formulae only"
   FILES+=( "$BREWFILES_DIR/Brewfile-base" )
 else
   echo "🍎 Detected macOS — installation mode: $mode"
@@ -79,7 +71,7 @@ else
   fi
 fi
 
-# 3. Run brew bundle on each brewfile
+# Run brew bundle on each brewfile
 for f in "${FILES[@]}"; do
   if [[ -f "$f" ]]; then
     echo -e "📦 Installing from $f...\n"

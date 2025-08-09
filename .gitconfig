@@ -1,5 +1,105 @@
 [user]
         name = Jordi Isken
         email = 72348117+UBONGFX@users.noreply.github.com
+
 [init]
-        defaultBranch = macho
+        defaultBranch = main
+
+[core]
+        editor = nvim
+        autocrlf = input
+        safecrlf = true
+        excludesfile = ~/.gitignore_global
+        pager = less -FRX
+        whitespace = trailing-space,space-before-tab
+
+[pull]
+        rebase = true
+
+[push]
+        default = simple
+        autoSetupRemote = true
+
+[merge]
+        tool = vimdiff
+        conflictstyle = diff3
+
+[diff]
+        tool = vimdiff
+        colorMoved = default
+
+[color]
+        ui = auto
+        branch = auto
+        diff = auto
+        status = auto
+
+[color "branch"]
+        current = yellow bold
+        local = green bold
+        remote = cyan bold
+
+[color "diff"]
+        meta = yellow bold
+        frag = magenta bold
+        old = red bold
+        new = green bold
+        whitespace = red reverse
+
+[color "status"]
+        added = green bold
+        changed = yellow bold
+        untracked = red bold
+
+[alias]
+        # Basic shortcuts
+        co = checkout
+        br = branch
+        ci = commit
+        st = status
+        unstage = reset HEAD --
+        last = log -1 HEAD
+        visual = !gitk
+
+        # Log aliases
+        lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+        lol = log --graph --decorate --pretty=oneline --abbrev-commit
+        lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+
+        # Useful shortcuts
+        amend = commit --amend --no-edit
+        fixup = commit --fixup
+        squash = commit --squash
+        unstash = stash pop
+        wip = commit -am "WIP"
+        undo = reset --soft HEAD^
+        
+        # Branch management
+        cleanup = "!git branch --merged | grep -v '\\*\\|main\\|master\\|develop' | xargs -n 1 git branch -d"
+        recent = branch --sort=-committerdate
+        
+        # Diff aliases
+        staged = diff --staged
+        conflicts = diff --name-only --diff-filter=U
+
+[fetch]
+        prune = true
+
+[rebase]
+        autoStash = true
+        autoSquash = true
+
+[branch]
+        autoSetupRebase = always
+
+[help]
+        autocorrect = 1
+
+[credential]
+        helper = osxkeychain
+
+[filter "lfs"]
+        clean = git-lfs clean -- %f
+        smudge = git-lfs smudge -- %f
+        process = git-lfs filter-process
+        required = true

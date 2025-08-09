@@ -1,1 +1,8 @@
+# Backup directories created by bootstrap script
 _backup_*
+
+.DS_Store
+.vscode/*
+
+# Local machine-specific configurations
+.dotfiles-local/
