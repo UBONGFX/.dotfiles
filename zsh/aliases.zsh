@@ -1,6 +1,5 @@
 echo "🚧 Loading aliases"
 
-alias gg='git log --all --decorate --oneline --graph'
 alias gs='git status'
 alias gc='git commit'
 alias gb='git branch'

@@ -20,6 +20,16 @@
         default = simple
         autoSetupRemote = true
 
+[fetch]
+        prune = true
+
+[rebase]
+        autoStash = true
+        autoSquash = true
+
+[branch]
+        autoSetupRebase = always
+
 [merge]
         tool = vimdiff
         conflictstyle = diff3
@@ -30,9 +40,6 @@
 
 [color]
         ui = auto
-        branch = auto
-        diff = auto
-        status = auto
 
 [color "branch"]
         current = yellow bold
@@ -63,15 +70,12 @@
 
         # Log aliases
         lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-        lol = log --graph --decorate --pretty=oneline --abbrev-commit
-        lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
 
         # Useful shortcuts
         amend = commit --amend --no-edit
         fixup = commit --fixup
         squash = commit --squash
         unstash = stash pop
-        wip = commit -am "WIP"
         undo = reset --soft HEAD^
         
         # Branch management
@@ -82,24 +86,5 @@
         staged = diff --staged
         conflicts = diff --name-only --diff-filter=U
 
-[fetch]
-        prune = true
-
-[rebase]
-        autoStash = true
-        autoSquash = true
-
-[branch]
-        autoSetupRebase = always
-
-[help]
-        autocorrect = 1
-
 [credential]
         helper = osxkeychain
-
-[filter "lfs"]
-        clean = git-lfs clean -- %f
-        smudge = git-lfs smudge -- %f
-        process = git-lfs filter-process
-        required = true

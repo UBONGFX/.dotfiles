@@ -1,8 +1,9 @@
 # Backup directories created by bootstrap script
 _backup_*
 
+# macOS system files
 .DS_Store
-.vscode/*
 
-# Local machine-specific configurations
-.dotfiles-local/
+# Common IDE folders
+.vscode/
+.idea/

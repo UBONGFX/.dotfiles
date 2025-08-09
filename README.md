@@ -107,20 +107,6 @@ After installation, restart your terminal or run `source ~/.zshrc` to ensure `br
    - Add keys to SSH agent (macOS)
    - Display your public key to add to GitHub
 
-7. **Verify Git Configuration (Optional):**
-   Run a health check on your Git setup:
-   ```bash
-   ./scripts/git-doctor.sh
-   ```
-   
-   This will validate:
-   - Git installation and version
-   - User configuration (name/email)
-   - Global gitignore setup
-   - SSH key configuration
-   - GitHub connectivity
-   - Useful Git aliases
-
 ## 🔄 Switching to SSH Remote (Optional)
 
 If you cloned using HTTPS but want to switch to SSH for easier authentication (no password prompts), you can change the remote URL:
