@@ -21,6 +21,7 @@ echo -e "\n🔧 Bootstrapping dotfiles from $DOTFILES_DIR...\n"
 TARGETS=(
     ".zsh"
     ".zshrc"
+    ".zshenv"
     ".gitconfig"
     ".gitignore_global"
     ".config/nvim"
@@ -31,6 +32,7 @@ TARGETS=(
 SOURCES=(
     "$DOTFILES_DIR/zsh"
     "$DOTFILES_DIR/zshrc"
+    "$DOTFILES_DIR/zshenv"
     "$DOTFILES_DIR/.gitconfig"
     "$DOTFILES_DIR/gitignore_global"
     "$DOTFILES_DIR/config/nvim"
