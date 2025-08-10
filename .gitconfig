@@ -10,7 +10,7 @@
         autocrlf = input
         safecrlf = true
         excludesfile = ~/.gitignore_global
-        pager = less -FRX
+        pager = delta
         whitespace = trailing-space,space-before-tab
 
 [pull]
@@ -78,3 +78,20 @@
 
 [credential]
         helper = osxkeychain
+
+[delta]
+        navigate = true
+        light = false 
+        line-numbers = true
+        side-by-side = false
+        syntax-theme = Dracula
+        features = decorations
+
+[delta "decorations"]
+        commit-decoration-style = bold yellow box ul
+        file-style = bold yellow ul
+        file-decoration-style = none
+        hunk-header-decoration-style = cyan box ul
+
+[interactive]
+        diffFilter = delta --color-only
