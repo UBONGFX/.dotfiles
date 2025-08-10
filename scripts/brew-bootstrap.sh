@@ -1,7 +1,7 @@
 #!/bin/bash
 # Installs packages from your brewfiles:
 #   • Requires Homebrew to be pre-installed 🍺
-#   • Supports modes: --base, --office, --private (default: all) ⚙️
+#   • Supports modes: --base, --office, --other, --all (default: base) ⚙️
 #   • Runs `brew bundle` on each selected brewfile 📦✅
 #   • Cross-platform: adapts to macOS vs Linux 🌍
 
@@ -25,17 +25,17 @@ if [[ "${1:-}" == "--base" ]]; then
   mode="base"
 elif [[ "${1:-}" == "--office" ]]; then
   mode="office"
-elif [[ "${1:-}" == "--private" ]]; then
-  mode="private"
+elif [[ "${1:-}" == "--other" ]]; then
+  mode="other"
 elif [[ "${1:-}" == "--all" ]]; then
   mode="all"
 elif [[ "${1:-}" =~ ^-- ]]; then
   echo "❌ Unknown flag: $1"
   echo ""
-  echo "Usage: $0 [--base|--office|--private|--all]"
+  echo "Usage: $0 [--base|--office|--other|--all]"
   echo "  --base     Install base formulae only"
   echo "  --office   Install base + office applications"  
-  echo "  --private  Install base + private applications"
+  echo "  --other  Install base + other applications"
   echo "  --all      Install everything (default)"
   exit 1
 fi
@@ -65,9 +65,9 @@ else
     FILES+=( "$BREWFILES_DIR/Brewfile-office-casks" )
   fi
 
-  # Private-only additions
-  if [[ "$mode" == "private" || "$mode" == "all" ]]; then
-    FILES+=( "$BREWFILES_DIR/Brewfile-private-casks" )
+  # other-only additions
+  if [[ "$mode" == "other" || "$mode" == "all" ]]; then
+    FILES+=( "$BREWFILES_DIR/Brewfile-other-casks" )
   fi
 fi
 
