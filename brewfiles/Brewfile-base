@@ -1,0 +1,50 @@
+# essentials
+brew "git"
+brew "fzf"
+brew "coreutils"
+brew "luarocks"
+brew "fd"
+brew "jq"
+brew "curl"
+brew "wget"
+brew "eza"
+brew "less"
+brew "bat"
+brew "tree"
+brew "gcc"
+brew "ripgrep"
+brew "git-delta"
+brew "tldr"
+
+# tools 
+brew "htop"
+brew "neovim"
+brew "starship"
+brew "nvm"
+
+# zsh plugins
+brew "zsh"
+brew "zsh-autosuggestions"
+brew "zsh-history-substring-search"
+brew "zsh-syntax-highlighting"
+brew "zsh-you-should-use"
+
+# infra tools 
+tap "hashicorp/tap"
+brew "terraform"
+brew "ansible"
+brew "helm"
+brew "helm-docs"
+brew "awscli"
+brew "aws-cdk"
+brew "kubectl"
+brew "kubectx"
+brew "docker"
+brew "kind"
+brew "k9s"
+
+# nice to have 
+tap "teamookla/speedtest"
+brew "teamookla/speedtest/speedtest"
+brew "cmatrix"
+brew "macchina"
