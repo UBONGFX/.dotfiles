@@ -76,3 +76,8 @@ for i in "${!TARGETS[@]}"; do
 done
 
 echo -e "\n🎉 Dotfiles bootstrapping complete!"
+
+echo -e "\n🔄 To apply all changes, reload your shell:"
+echo -e "   exec zsh"
+echo -e "\n💡 Or manually source configs:"
+echo -e "   source ~/.zshenv && source ~/.zshrc"

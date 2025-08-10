@@ -84,11 +84,17 @@ After installation, restart your terminal or run `source ~/.zshrc` to ensure `br
    sudo ./scripts/set_shell.sh
    ```
 
-### 5. **Reload or Restart Your Shell:**
-   For all changes to take effect, either open a new terminal window or reload your current session with:
+### 5. **Reload Your Shell Environment:**
+   For all changes to take effect, start a fresh shell session:
    ```bash
-   source ~/.zshrc
+   # Recommended: start fresh shell (loads all configs)
+   exec zsh
+   
+   # Alternative: manually source configs
+   source ~/.zshenv && source ~/.zshrc
    ```
+   
+   **Note:** Some applications (Neovim, terminal emulators) may need to be restarted to pick up their new configurations.
 
 ### 6. **Set Up SSH Keys (Recommended):**
    Create a complete SSH environment with directory, config, and keys:
