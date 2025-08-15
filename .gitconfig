@@ -17,7 +17,6 @@
         ff = only
 
 [push]
-        default = simple
         autoSetupRemote = true
 
 [fetch]
@@ -34,20 +33,10 @@
         tool = nvimdiff
         colorMoved = default
 
-[color]
-        ui = auto
-
 [color "branch"]
         current = yellow bold
         local = green bold
         remote = cyan bold
-
-[color "diff"]
-        meta = yellow bold
-        frag = magenta bold
-        old = red bold
-        new = green bold
-        whitespace = red reverse
 
 [color "status"]
         added = green bold
@@ -59,7 +48,8 @@
         last = log -1 HEAD
 
         # Log aliases
-        lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+        lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --all
+        lgb = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 
         # Useful shortcuts
         amend = commit --amend --no-edit
@@ -67,11 +57,11 @@
         squash = commit --squash
         unstash = stash pop
         undo = reset --soft HEAD^
-        
+ 
         # Branch management
         cleanup = "!git branch --merged | grep -v '\\*\\|main\\|master\\|develop' | xargs -n 1 git branch -d"
         recent = branch --sort=-committerdate
-        
+
         # Diff aliases
         staged = diff --staged
         conflicts = diff --name-only --diff-filter=U
