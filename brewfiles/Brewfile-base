@@ -18,6 +18,7 @@ brew "tldr"
 
 # tools 
 brew "htop"
+brew "btop"
 brew "neovim"
 brew "starship"
 brew "nvm"

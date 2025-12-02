@@ -4,14 +4,19 @@ echo "🚧 Loading aliases"
 alias gs='git status'
 alias gc='git commit'
 alias gb='git branch'
+alias gcl='git clone'
 alias gf='git fetch'
-alias gp='git pull'
+alias gl='git pull'
+alias gp='git push'
 alias ga='git add'
 
 # ls replacements
 alias ll='ls -lah -g --icons --git'
 alias la='eza -l -a -g --icons --git'
 alias ls='eza --icons --git'
+
+alias c='clear'
+alias ..='cd ..'
 
 # Infrastructure tools
 alias k='kubectl'
