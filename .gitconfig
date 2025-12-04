@@ -14,7 +14,7 @@
         whitespace = trailing-space,space-before-tab
 
 [pull]
-        ff = only
+        rebase = false
 
 [push]
         autoSetupRemote = true
