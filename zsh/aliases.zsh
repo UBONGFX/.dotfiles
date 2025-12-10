@@ -14,6 +14,7 @@ alias ga='git add'
 alias ll='ls -lah -g --icons --git'
 alias la='eza -l -a -g --icons --git'
 alias ls='eza --icons --git'
+alias lla='ls -al'
 
 alias c='clear'
 alias ..='cd ..'

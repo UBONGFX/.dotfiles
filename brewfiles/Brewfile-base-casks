@@ -2,6 +2,7 @@
 cask "arc"
 cask "figma"
 cask "docker"
+cask "nordvpn"
 cask "postman"
 cask "ghostty"
 cask "raycast"
