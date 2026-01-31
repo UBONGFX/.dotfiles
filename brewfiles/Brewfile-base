@@ -15,6 +15,7 @@ brew "gcc"
 brew "ripgrep"
 brew "git-delta"
 brew "tldr"
+brew "gnupg"
 
 # tools 
 brew "htop"
