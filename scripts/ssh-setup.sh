@@ -12,21 +12,27 @@ set -euo pipefail
 SSH_DIR="$HOME/.ssh"
 CONFIG_FILE="${SSH_DIR}/config"
 KEY_FILE="${SSH_DIR}/id_ed25519"
+SIGNING_KEY_FILE="${SSH_DIR}/id_ed25519_signing"
 KEY_TYPE="ed25519"
 KEY_COMMENT="${USER}@$(hostname -s)"
+SIGNING_KEY_COMMENT="${USER}@$(hostname -s)-signing"
 DOTFILES_SSH_CONFIG="$HOME/.dotfiles/config/ssh/config"
 
 echo -e "\n🔐 Setting up SSH environment..."
 
 # Check if SSH is already fully configured
-if [[ -d "$SSH_DIR" ]] && [[ -f "$CONFIG_FILE" ]] && [[ -f "$KEY_FILE" ]]; then
+if [[ -d "$SSH_DIR" ]] && [[ -f "$CONFIG_FILE" ]] && [[ -f "$KEY_FILE" ]] && [[ -f "$SIGNING_KEY_FILE" ]]; then
     echo -e "\n⚠️ SSH is already fully configured!"
     echo "Directory: $SSH_DIR ✓"
     echo "Config: $CONFIG_FILE ✓" 
     echo "Key: $KEY_FILE ✓"
+    echo "Signing key: $SIGNING_KEY_FILE ✓"
     echo -e "\nPublic key:"
     cat "${KEY_FILE}.pub"
+    echo -e "\nSigning public key:"
+    cat "${SIGNING_KEY_FILE}.pub"
     echo -e "\nTo add this key to GitHub, visit: https://github.com/settings/ssh/new"
+    echo "Key type: Authentication for $KEY_FILE, Signing for $SIGNING_KEY_FILE"
     exit 0
 fi
 
@@ -56,7 +62,7 @@ else
     echo "✅ SSH config already exists"
 fi
 
-# Generate SSH keys if they don't exist
+# Generate SSH auth key if it doesn't exist
 if [[ ! -f "$KEY_FILE" ]]; then
     echo -e "\n🔑 Generating SSH keys"
     ssh-keygen -t "$KEY_TYPE" -C "$KEY_COMMENT" -f "$KEY_FILE" -N ""
@@ -67,17 +73,31 @@ else
     echo "✅ SSH keys already exist"
 fi
 
+# Generate SSH signing key if it doesn't exist
+if [[ ! -f "$SIGNING_KEY_FILE" ]]; then
+    echo -e "\n🔑 Generating SSH signing key"
+    ssh-keygen -t "$KEY_TYPE" -C "$SIGNING_KEY_COMMENT" -f "$SIGNING_KEY_FILE" -N ""
+    chmod 600 "$SIGNING_KEY_FILE"
+    chmod 644 "${SIGNING_KEY_FILE}.pub"
+    echo "✅ SSH signing key generated successfully!"
+else
+    echo "✅ SSH signing key already exists"
+fi
+
 # Add to SSH agent on macOS
 if [[ "$OSTYPE" == "darwin"* ]] && command -v ssh-add >/dev/null; then
     echo -e "\n🍎 Adding key to SSH agent (macOS)"
     ssh-add --apple-use-keychain "$KEY_FILE" 2>/dev/null || ssh-add "$KEY_FILE"
+    ssh-add --apple-use-keychain "$SIGNING_KEY_FILE" 2>/dev/null || ssh-add "$SIGNING_KEY_FILE"
     echo "✅ Key added to SSH agent"
 fi
 
 echo -e "\n🎉 SSH setup completed!\n"
-echo "📋 Your public key (copy this to GitHub/servers):"
+echo "📋 Your auth public key (copy this to GitHub/servers):"
 echo -e "$(cat "${KEY_FILE}.pub")\n"
+echo "📋 Your signing public key (add to GitHub as Signing key):"
+echo -e "$(cat "${SIGNING_KEY_FILE}.pub")\n"
 echo "🔗 Next steps:"
-echo "1. Copy the public key above"  
-echo "2. Add it to GitHub: https://github.com/settings/ssh/new"
+echo "1. Add auth key to GitHub: https://github.com/settings/ssh/new"
+echo "2. Add signing key to GitHub with Key type: Signing"
 echo "3. Test connection: ssh -T git@github.com"
