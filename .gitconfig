@@ -86,6 +86,9 @@
 [interactive]
         diffFilter = delta --color-only
 
+[gpg]
+        format = ssh
+
 [commit]
 	gpgsign = true
 
