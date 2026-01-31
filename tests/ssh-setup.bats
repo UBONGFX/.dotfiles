@@ -40,8 +40,12 @@ teardown() {
   # Assert SSH keys created with correct permissions
   [ -f "$HOME/.ssh/id_ed25519" ]
   [ -f "$HOME/.ssh/id_ed25519.pub" ]
+  [ -f "$HOME/.ssh/id_ed25519_signing" ]
+  [ -f "$HOME/.ssh/id_ed25519_signing.pub" ]
   [ "$(stat -c %a "$HOME/.ssh/id_ed25519" 2>/dev/null || stat -f %Mp%Lp "$HOME/.ssh/id_ed25519" | tail -c 4)" = "600" ]
   [ "$(stat -c %a "$HOME/.ssh/id_ed25519.pub" 2>/dev/null || stat -f %Mp%Lp "$HOME/.ssh/id_ed25519.pub" | tail -c 4)" = "644" ]
+  [ "$(stat -c %a "$HOME/.ssh/id_ed25519_signing" 2>/dev/null || stat -f %Mp%Lp "$HOME/.ssh/id_ed25519_signing" | tail -c 4)" = "600" ]
+  [ "$(stat -c %a "$HOME/.ssh/id_ed25519_signing.pub" 2>/dev/null || stat -f %Mp%Lp "$HOME/.ssh/id_ed25519_signing.pub" | tail -c 4)" = "644" ]
   
   # Assert config content is from dotfiles
   grep -q "# SSH Configuration" "$HOME/.ssh/config"
@@ -58,8 +62,12 @@ teardown() {
   # Create mock SSH keys
   echo "-----BEGIN OPENSSH PRIVATE KEY-----" > "$HOME/.ssh/id_ed25519"
   echo "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMockKeyForTesting testuser@testhost" > "$HOME/.ssh/id_ed25519.pub"
+  echo "-----BEGIN OPENSSH PRIVATE KEY-----" > "$HOME/.ssh/id_ed25519_signing"
+  echo "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMockSigningKeyForTesting testuser@testhost-signing" > "$HOME/.ssh/id_ed25519_signing.pub"
   chmod 600 "$HOME/.ssh/id_ed25519"
   chmod 644 "$HOME/.ssh/id_ed25519.pub"
+  chmod 600 "$HOME/.ssh/id_ed25519_signing"
+  chmod 644 "$HOME/.ssh/id_ed25519_signing.pub"
   
   # Act
   run bash "$HOME/.dotfiles/scripts/ssh-setup.sh"
@@ -70,6 +78,7 @@ teardown() {
   # Assert output shows existing configuration
   [[ "$output" =~ "SSH is already fully configured" ]]
   [[ "$output" =~ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMockKeyForTesting" ]]
+  [[ "$output" =~ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMockSigningKeyForTesting" ]]
 }
 
 @test "Missing dotfiles config: fails with error" {
@@ -103,6 +112,7 @@ teardown() {
   # Assert it created missing components
   [[ "$output" =~ "SSH config copied from dotfiles" ]]
   [[ "$output" =~ "SSH keys generated successfully" ]]
+  [[ "$output" =~ "SSH signing key generated successfully" ]]
 }
 
 @test "SSH key generation works correctly" {
@@ -115,9 +125,12 @@ teardown() {
   # Assert key files exist and are valid
   [ -f "$HOME/.ssh/id_ed25519" ]
   [ -f "$HOME/.ssh/id_ed25519.pub" ]
+  [ -f "$HOME/.ssh/id_ed25519_signing" ]
+  [ -f "$HOME/.ssh/id_ed25519_signing.pub" ]
   
-  # Assert we can read the public key (validates it's a real SSH key)
+  # Assert we can read the public keys (validates they're real SSH keys)
   ssh-keygen -l -f "$HOME/.ssh/id_ed25519.pub" > /dev/null
+  ssh-keygen -l -f "$HOME/.ssh/id_ed25519_signing.pub" > /dev/null
 }
 
 @test "SSH config is properly set up" {
@@ -139,6 +152,7 @@ teardown() {
   
   # Capture initial state
   initial_key=$(cat "$HOME/.ssh/id_ed25519.pub")
+  initial_signing_key=$(cat "$HOME/.ssh/id_ed25519_signing.pub")
   
   # Second run
   run bash "$HOME/.dotfiles/scripts/ssh-setup.sh"
@@ -146,7 +160,9 @@ teardown() {
   
   # Assert nothing changed
   current_key=$(cat "$HOME/.ssh/id_ed25519.pub")
+  current_signing_key=$(cat "$HOME/.ssh/id_ed25519_signing.pub")
   [ "$initial_key" = "$current_key" ]
+  [ "$initial_signing_key" = "$current_signing_key" ]
   
   # Assert idempotent message shown
   [[ "$output" =~ "SSH is already fully configured" ]]
