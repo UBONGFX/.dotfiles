@@ -7,3 +7,6 @@ _backup_*
 # Common IDE folders
 .vscode/
 .idea/
+
+# Local git config (contains private signing key id)
+.gitconfig.local
