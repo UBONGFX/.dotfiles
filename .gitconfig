@@ -1,6 +1,7 @@
 [user]
         name = Jordi Isken
         email = 72348117+UBONGFX@users.noreply.github.com
+	signingkey = ~/.ssh/id_ed25519_signing.pub
 
 [init]
         defaultBranch = main
@@ -91,6 +92,3 @@
 
 [commit]
 	gpgsign = true
-
-[include]
-        path = ~/.gitconfig.local

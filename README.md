@@ -1,4 +1,4 @@
-# .dotfiles 
+# `.dotfiles`
 
 Welcome to my personal dotfiles repository! This collection houses all the configuration files, customizations, and themes that I use to tailor my Linux and macOS environments for an optimal experience. 
 
@@ -81,7 +81,7 @@ After installation, restart your terminal or run `source ~/.zshrc` to ensure `br
 	-	Runs chsh to update your login shell.
 	-	Enter your password when prompted to authorize the change.
    ```bash
-   sudo ./scripts/set_shell.sh
+   sudo ./scripts/set-shell.sh
    ```
 
 ### 5. **Reload Your Shell Environment:**
@@ -104,10 +104,11 @@ After installation, restart your terminal or run `source ~/.zshrc` to ensure `br
    
    The script will:
    - Create ~/.ssh directory with proper permissions (700)
-   - Copy SSH config from your dotfiles 
+   - Copy SSH config from your dotfiles
    - Generate ed25519 SSH keys if they don't exist
+   - Generate a separate ed25519 signing key
    - Add keys to SSH agent (macOS)
-   - Display your public key to add to GitHub
+   - Display both public keys and remind you to add the signing key as **Signing** in GitHub
 
 ## 🔄 Switching to SSH Remote (Optional)
 
