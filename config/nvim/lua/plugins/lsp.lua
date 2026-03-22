@@ -1,34 +1,32 @@
 return {
   {
-    "williamboman/mason.nvim",
-    build = ":MasonUpdate",
-    config = function()
-      require("mason").setup()
-    end,
+    "mason-org/mason.nvim",
+    opts = {
+      ensure_installed = {
+        "stylua",
+      },
+    },
   },
   {
-    "williamboman/mason-lspconfig.nvim",
-    dependencies = {
-      "williamboman/mason.nvim",
-      "neovim/nvim-lspconfig",
+    "mason-org/mason-lspconfig.nvim",
+    opts = {
+      ensure_installed = {
+        "lua_ls",
+        "jsonls",
+        "pyright",
+        "svelte",
+      },
     },
-    config = function()
-      require("mason-lspconfig").setup({
-        ensure_installed = {
-          "lua_ls",
-          "jsonls",
-          "pyright",
-          "svelte",
-        },
-        automatic_installation = true,
-      })
-
-      local lspconfig = require("lspconfig")
-      local servers = { "lua_ls", "jsonls", "pyright", "svelte" }
-
-      for _, server in ipairs(servers) do
-        lspconfig[server].setup({})
-      end
-    end,
+  },
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      servers = {
+        jsonls = {},
+        lua_ls = {},
+        pyright = {},
+        svelte = {},
+      },
+    },
   },
 }
